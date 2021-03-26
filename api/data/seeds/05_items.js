@@ -1,0 +1,10 @@
+exports.seed = async function(knex) {
+	await knex("items").insert([
+		{ item_id: 1, name: "potatoes", description: "The potato is a root vegetable native to the Americas, a starchy tuber of the plant Solanum tuberosum, and the plant itself is a perennial in the nightshade family, Solanaceae.",  price: 12.30, location: "Nigeria", cat_id: 1},
+		{ item_id: 2, name: "chocolate", description: "Chocolate is a preparation of roasted and ground cacao seeds that is made in the form of a liquid, paste, or in a block, which may also be used as a flavoring ingredient in other foods.",  price: 2.00, location: "Uganda", cat_id: 1},
+    { item_id: 3, name: "scarf", description: "A scarf, plural scarves, is a piece of fabric worn around the neck or head for warmth, sun protection, cleanliness, fashion, or religious reasons or used to show the support for a sports club or team. They can be made in a variety of different materials such as wool, linen, silk or cotton. It is a common type of neckwear.",  price: 130.00, location: "Ghana", cat_id: 2},
+    { item_id: 4, name: "walkman", description: "Discman was Sony's brand name for portable CD players. The first Discman, the D-5 (North America and various other countries)/D-50, was released in 1984. In 1997, the name was changed to CD Walkman (Overseas model called Discman ESP2 until 1999[1]) worldwide to match cassette Walkman branding.",  price: 450.00, location: "Ghana", cat_id: 3},
+    { item_id: 5, name: "radio", description: "Radio, sound communication by radio waves, usually through the transmission of music, news, and other types of programs from single broadcast stations to multitudes of individual listeners equipped with radio receivers.",  price: 99.99, location: "Sudan", cat_id: 3},
+    { item_id: 6, name: "dress", description: "A flouncy hem and a bold, spring-ready hue infuse this maxi with unsurpassed polish and poise - making it a fabulous match for sandals or crisp white sneakers.",  price: 1200.00, location: "Algeria", cat_id: 2},
+	])
+}
