@@ -1,20 +1,20 @@
 exports.up = async (knex) => {
-	await knex.schema.createTable("roles", (table) => {
-		table.increments("id")
-		table.text("name").notNull().unique()
-	})
+	// await knex.schema.createTable("roles", (table) => {
+	// 	table.increments("id")
+	// 	table.text("name").notNull().unique()
+	// })
 
 	await knex.schema.createTable("users", (table) => {
 		table.increments("id")
 		table.text("username").notNull().unique()
 		table.text("password").notNull()
     table.boolean("owner").defaultTo(true)
-		table.integer("role_id")
-			// .defaultTo('owner')
-			.references("id")
-			.inTable("roles")
-			.onDelete("RESTRICT")
-			.onUpdate("CASCADE")
+		// table.integer("role_id")
+		// 	// .defaultTo('owner')
+		// 	.references("id")
+		// 	.inTable("roles")
+		// 	.onDelete("RESTRICT")
+		// 	.onUpdate("CASCADE")
 	})
 
     await knex.schema.createTable('categories', (table) => {
@@ -41,11 +41,11 @@ exports.up = async (knex) => {
 }
 
 exports.down = async (knex) => {
-  await knex.schema.dropTableIfExists('items_categories')
+  await knex.schema.dropTableIfExists('users_items')
   await knex.schema.dropTableIfExists('items')
   await knex.schema.dropTableIfExists('categories')
   await knex.schema.dropTableIfExists('users')
-  await knex.schema.dropTableIfExists("roles")
+  // await knex.schema.dropTableIfExists("roles")
   
   
 }
