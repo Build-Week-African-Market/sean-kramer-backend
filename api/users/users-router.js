@@ -18,8 +18,8 @@ async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
 	try {
-		// const { username, password } = req.body
-		const user = await Users.findByUsername(req.body.username)
+		const { username, password } = req.body
+		const user = await Users.findByUsername(username)
 
 		if (user) {
 			return res.status(409).json({
@@ -27,7 +27,10 @@ router.post("/", async (req, res, next) => {
 			})
 		}
 
-		const newUser = await Users.add(req.body)
+		const newUser = await Users.add({
+      username,
+password: await bcrypt.hash(password, 12)
+    })
 
 		res.status(201).json(newUser)
 	} catch(err) {
