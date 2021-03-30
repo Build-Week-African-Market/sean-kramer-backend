@@ -3,6 +3,7 @@ const router = express.Router()
 const {
   find,
   findById,
+  findByOwner,
   add,
   update,
   remove,
@@ -23,6 +24,17 @@ router.get('/categories/:id', async (req, res, next) => {
 const cat = await req.params.id 
 const items = await findByCat(cat)
 res.status(200).json(items)
+  } catch(err) {
+    next(err)
+  }
+})
+
+router.get('/owners/:user_id', async (req, res, next) => {
+  try {
+    const owner = await req.params.user_id
+    console.log(owner)
+const ownerItems = await findByOwner(owner)
+res.status(200).json(ownerItems)
   } catch(err) {
     next(err)
   }

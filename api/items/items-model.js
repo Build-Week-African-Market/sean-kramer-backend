@@ -21,6 +21,15 @@ function findByCat(cat) {
   .select('*')
 }
 
+function findByOwner(owner) {
+  return db.select('i.name', 'i.description', 'i.price', 'i.location')
+  .from('items as i')
+  .join('users_items as ui', 'ui.item_id', 'i.item_id')
+  .join('users as u', 'u.id', 'ui.user_id')
+  .where('ui.user_id', '=', owner)
+  
+}
+
 async function update(id, changes) {
   await db('items').where({id}).update(changes)
   return findById(id)
@@ -35,6 +44,7 @@ module.exports = {
   find,
   findById,
   findByCat,
+  findByOwner,
   add,
   update,
   remove
