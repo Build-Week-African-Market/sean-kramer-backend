@@ -29,7 +29,7 @@ res.status(200).json(items)
   }
 })
 
-router.get('/owners/:user_id', async (req, res, next) => {
+router.get('/owner/:user_id', async (req, res, next) => {
   try {
     const owner = await req.params.user_id
     console.log(owner)
