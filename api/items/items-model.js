@@ -6,12 +6,21 @@ function find() {
 }
 
 async function add(item) {
-  const [id] = await db('items').insert(item)
-  return findById(id)
+  const itemId = await db('items').insert(item).returning('item_id')
+
+  console.log('itemId: ', itemId[0])
+
+  return findById(itemId[0])
+  
 }
 
+// const userId = await db("users").insert(user)
+// .returning('id')
+
+// return findById(parseInt(userId))
+
 function findById(id) {
-  return db('items').where({id}).first()
+  return db('items').where('item_id', id).first()
 }
 
 function findByCat(cat) {
@@ -29,6 +38,8 @@ function findByOwner(owner) {
   .where('ui.user_id', '=', owner)
   
 }
+
+
 
 async function update(id, changes) {
   await db('items').where({id}).update(changes)

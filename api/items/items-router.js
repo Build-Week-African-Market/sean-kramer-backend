@@ -1,4 +1,5 @@
 const express = require('express')
+const db = require('../data/db-config')
 const router = express.Router()
 const {
   find,
@@ -40,13 +41,35 @@ res.status(200).json(ownerItems)
   }
 })
 
-// router.post('/', async (req, res, next) => {
-//   try {
+router.post('/', async (req, res, next) => {
+  try {
+const newItem = await {
+  name: req.body.name,
+  description: req.body.description,
+  price: req.body.price,
+  location: req.body.location,
+  cat_id: req.body.cat_id
+}
 
-//   } catch(err) {
-//     next(err)
-//   }
-// })
+
+
+const added = await add(newItem)
+
+console.log('added: ', added)
+console.log('added.item_id ', added.item_id)
+
+const newUItem = await {
+  item_id: added.item_id,
+  user_id: req.body.user_id
+}
+console.log('newUItem: ', newUItem)
+const junctionItem = await db('users_items').insert(newUItem)
+
+res.status(201).json(added)
+  } catch(err) {
+    next(err)
+  }
+})
 
 // router.put('/', async (req, res, next) => {
 //   try {
