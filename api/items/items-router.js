@@ -71,20 +71,28 @@ res.status(201).json(added)
   }
 })
 
-// router.put('/', async (req, res, next) => {
-//   try {
+router.put('/:itemId', async (req, res, next) => {
+  try {
+console.log('req.params: ', req.params)
+    console.log('req.body: ', req.body)
+const updatedItem = await update(req.params.itemId, req.body)
 
-//   } catch(err) {
-//     next(err)
-//   }
-// })
+console.log('updatedItem: ', updatedItem)
 
-// router.delete('/', async (req, res, next) => {
-//   try {
+res.status(201).json(updatedItem)
 
-//   } catch(err) {
-//     next(err)
-//   }
-// })
+  } catch(err) {
+    next(err)
+  }
+})
+
+router.delete('/:itemId', async (req, res, next) => {
+  try {
+await remove(req.params.itemId)
+res.status(204).end()
+  } catch(err) {
+    next(err)
+  }
+})
 
 module.exports = router

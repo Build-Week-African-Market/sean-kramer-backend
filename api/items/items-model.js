@@ -42,12 +42,12 @@ function findByOwner(owner) {
 
 
 async function update(id, changes) {
-  await db('items').where({id}).update(changes)
+  await db('items').where('item_id', id).update(changes)
   return findById(id)
 }
 
 function remove(id) {
-  return db('items').where({id}).del()
+  return db('items').where('item_id', id).del()
 }
 
 

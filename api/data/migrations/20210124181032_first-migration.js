@@ -34,8 +34,8 @@ exports.up = async (knex) => {
     })
 
     await knex.schema.createTable('users_items', (table) => {
-      table.integer('item_id').references('item_id').inTable('items')
-      table.integer('user_id').references('id').inTable('users')
+      table.integer('item_id').references('item_id').inTable('items').onUpdate('CASCADE').onDelete('CASCADE')
+      table.integer('user_id').references('id').inTable('users').onUpdate('CASCADE').onDelete('CASCADE')
       table.primary(['item_id', 'user_id'])
     })
 }
