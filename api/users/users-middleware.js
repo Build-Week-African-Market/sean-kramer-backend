@@ -1,4 +1,4 @@
-const users = require("../models/users-model");
+const users = require("./users-model");
 const bcrypt = require("bcryptjs");
 /* Middleware needed for auth-router: 
 -1- checkForData - checks for a req.body, user_username, user_password
@@ -9,16 +9,16 @@ const bcrypt = require("bcryptjs");
 -3- checkUsername - async - check if username already exists
     👀 -4- checkEmail - async - check if email already exists */
 const checkForData = (req, res, next) => {
-  const { username: user_username, password: user_password } = req.body;
+  const { username, password } = req.body
   if (!Object.keys(req.body).length) {
     return res.status(401).json({
       message: "A username and password are required",
-    });
+    })
   }
   if (
-    !user_username ||
-    user_username.length < 3 ||
-    user_username.length >= 20
+    !username ||
+    username.length < 3 ||
+    username.length >= 20
   ) {
     return res.status(401).json({
       message:
@@ -26,9 +26,9 @@ const checkForData = (req, res, next) => {
     });
   }
   if (
-    !user_password ||
-    user_password.length < 3 ||
-    user_password.length >= 25
+    !password ||
+    password.length < 3 ||
+    password.length >= 25
   ) {
     return res.status(401).json({
       message:
@@ -37,6 +37,8 @@ const checkForData = (req, res, next) => {
   }
   next();
 };
+
+
 const checkLogin = async (req, res, next) => {
   try {
     const { username: user_username, password: user_password } = req.body;

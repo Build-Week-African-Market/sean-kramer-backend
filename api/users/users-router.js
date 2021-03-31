@@ -2,7 +2,7 @@ const express = require("express")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 const Users = require("./users-model")
-// const { restrict } = require("./users-middleware")
+const { checkForData } = require("./users-middleware")
 
 const router = express.Router()
 
@@ -16,7 +16,7 @@ async (req, res, next) => {
 	}
 })
 
-router.post("/", async (req, res, next) => {
+router.post("/", checkForData, async (req, res, next) => {
 	try {
 		const { username, password } = req.body
 		const user = await Users.findByUsername(username)
