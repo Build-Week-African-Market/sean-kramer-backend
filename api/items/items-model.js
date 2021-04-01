@@ -36,7 +36,6 @@ function findByOwner(owner) {
   .join('users_items as ui', 'ui.item_id', 'i.item_id')
   .join('users as u', 'u.id', 'ui.user_id')
   .where('ui.user_id', '=', owner)
-  
 }
 
 
