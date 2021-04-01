@@ -2,7 +2,7 @@ const express = require("express")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 const Users = require("./users-model")
-const { checkForData } = require("./users-middleware")
+const { checkForData, checkLogin } = require("./users-middleware")
 
 const router = express.Router()
 
@@ -38,7 +38,9 @@ password: await bcrypt.hash(password, 12)
 	}
 })
 
-router.post("/login", async (req, res, next) => {
+router.post("/login", 
+checkLogin, 
+async (req, res, next) => {
 	try {
 		const { username, password } = req.body
 		const user = await Users.findByUsername(username)
